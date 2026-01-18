@@ -6,20 +6,52 @@ StudentRoll::StudentRoll() {
 }
 
 void StudentRoll::insertAtTail(const Student &s) {
-  // STUB
+  Node* newNode = new Node;
+  newNode->s= new Student(s);
+  newNode->next=NULL;
+  if(head==NULL){
+    head = tail = new Node;
+  }
+  else{
+    tail->next= newNode;
+    tail= newNode;
+  }
 }
 
 std::string StudentRoll::toString() const {
-  return "stub";
+  std::string result = "[";
+  Node*curr = head;
+  while(curr!=NULL){
+    result += curr->s->toString();
+    if(curr->next != NULL){
+      result +=",";
+    }
+    curr=curr->next;
+  }
+  result += "]";
+  return result;
+
 }
 
 StudentRoll::StudentRoll(const StudentRoll &orig) {
-  // STUB
   head = tail = NULL;
+  Node* curr= orig.head;
+  while(curr!=NULL){
+    this->insertAtTail(*(curr->s));
+    curr=curr->next;
+  }
 }
 
+
 StudentRoll::~StudentRoll() {
-  // STUB
+  Node* curr= head;
+  while(curr!=NULL){
+    Node* next= curr->next;
+    delete curr;
+    curr=next;
+
+  }
+  head=tail=NULL;
 }
 
 StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
@@ -32,6 +64,20 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
 
   // TODO... Here is where there is code missing that you need to 
   // fill in...
+  Node* curr= head;
+  while(curr!=NULL){
+    Node* next= curr->next;
+    delete curr;
+    curr=next;
+
+  }
+  head=tail=NULL;
+  Node *p= right.head;
+  while(p!=NULL){
+    this->insertAtTail(*(p->s));
+    p=p->next;
+  }
+
 
 
   // KEEP THE CODE BELOW THIS LINE
