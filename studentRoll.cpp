@@ -10,7 +10,7 @@ void StudentRoll::insertAtTail(const Student &s) {
   newNode->s= new Student(s);
   newNode->next=NULL;
   if(head==NULL){
-    head = tail = new Node;
+    head = tail = newNode;
   }
   else{
     tail->next= newNode;
@@ -47,6 +47,7 @@ StudentRoll::~StudentRoll() {
   Node* curr= head;
   while(curr!=NULL){
     Node* next= curr->next;
+    delete curr->s;
     delete curr;
     curr=next;
 
@@ -67,6 +68,7 @@ StudentRoll & StudentRoll::operator =(const StudentRoll &right ) {
   Node* curr= head;
   while(curr!=NULL){
     Node* next= curr->next;
+    delete curr->s;
     delete curr;
     curr=next;
 
